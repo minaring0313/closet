@@ -25,7 +25,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;}
 html{height:100%;background:var(--parchment);}
 body{background:var(--parchment);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;height:100%;overflow:hidden;display:flex;flex-direction:column;padding-top:var(--safe-top);letter-spacing:0.01em;}
-body::before{content:'';position:fixed;inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;opacity:0.6;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;opacity:0.6;}
 ::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--sand);}
 
 /* TOP BAR */
@@ -255,7 +255,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background-image:url("d
 .check-all:hover{border-color:var(--champagne);color:var(--champagne);}
 
 /* BOTTOM TAB */
-.tab-bar{position:fixed;bottom:0;left:0;right:0;display:flex;background:rgba(247,243,236,0.96);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);border-top:1px solid var(--border);padding-bottom:var(--safe-bot);z-index:200;}
+.tab-bar{position:fixed;bottom:0;left:0;right:0;display:flex;background:rgba(247,243,236,0.96);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);border-top:1px solid var(--border);padding-bottom:var(--safe-bot);z-index:9999;}
 .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 4px 8px;cursor:pointer;border:none;background:transparent;color:var(--stone);font-family:'Jost',sans-serif;position:relative;transition:color 0.2s;}
 .tab-btn.active{color:var(--ink);}
 .tab-btn::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--champagne);transition:width 0.3s cubic-bezier(0.25,0.46,0.45,0.94);}
@@ -316,8 +316,8 @@ textarea.fi{min-height:60px;resize:none;}
         <div class="up-orn">Nouvelle Pièce</div>
         <div class="up-hl">장바구니 캡처를 올려주세요</div>
         <div class="up-desc">AI가 브랜드 · 상품명 · 가격을 자동으로 읽어드려요<br>담은 날짜가 기록되어 며칠째 고민 중인지 알 수 있어요</div>
-        <button class="up-cta" onclick="document.getElementById('fi').click()">이미지 선택</button>
-        <input type="file" id="fi" accept="image/*" multiple style="display:none" capture="environment">
+        <label for="fi" class="up-cta" style="display:inline-block;cursor:pointer;">이미지 선택</label>
+        <input type="file" id="fi" accept="image/*" multiple style="position:absolute;width:1px;height:1px;opacity:0;">
       </div>
     </div>
     <div class="analyzing" id="analyzing"><div class="spin"></div><div class="an-txt">AI 분석 중</div></div>
@@ -362,12 +362,12 @@ textarea.fi{min-height:60px;resize:none;}
   <div class="page" id="page-finder">
     <div class="pg-hd"><div class="pg-title"><span>Découverte</span>비슷한 스타일 찾기</div></div>
     <div class="finder-body">
-      <div class="finder-drop" id="finderDrop" onclick="document.getElementById('ffi').click()">
+      <label for="ffi" class="finder-drop" id="finderDrop" style="cursor:pointer;display:block;">
         <div class="up-orn">Image</div>
         <div class="up-hl" style="font-size:17px">옷 사진을 올려주세요</div>
         <div class="up-desc">비슷한 스타일의 상품을 찾아드려요</div>
-        <input type="file" id="ffi" accept="image/*" style="display:none" capture="environment">
-      </div>
+        <input type="file" id="ffi" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;">
+      </label>
       <img id="fPrev" class="finder-preview">
       <div class="field-grp"><label class="fl">예산 범위</label><div class="budget-pair"><input class="b-inp" id="bMin" type="number" placeholder="최소" value="0"><span class="b-sep">–</span><input class="b-inp" id="bMax" type="number" placeholder="최대" value="200000"><span class="b-sep" style="font-size:9px">원</span></div></div>
       <label class="fl">선호 쇼핑몰</label>
