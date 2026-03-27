@@ -496,6 +496,7 @@ async function analyzeImg(file) {
     updateStats();
     toast('✦ ' + arr.length + '개 추가됨');
   } catch(e) {
+    alert('오류: ' + e.message + '\n\n' + (e.stack || ''));
     toast('분석 실패. 다시 시도해주세요.', true);
   }
   bar.classList.remove('on');
