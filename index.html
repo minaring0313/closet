@@ -417,9 +417,27 @@ function showPg(id, btn) {
 // B64
 function toB64(file) {
   return new Promise(function(res) {
-    var r = new FileReader();
-    r.onload = function(e) { res(e.target.result); };
-    r.readAsDataURL(file);
+    var img = new Image();
+    var url = URL.createObjectURL(file);
+    img.onload = function() {
+      var canvas = document.createElement('canvas');
+      var max = 1024;
+      var w = img.width, h = img.height;
+      if (w > max || h > max) {
+        if (w > h) { h = Math.round(h * max / w); w = max; }
+        else { w = Math.round(w * max / h); h = max; }
+      }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      res(canvas.toDataURL('image/jpeg', 0.75));
+    };
+    img.onerror = function() {
+      var r = new FileReader();
+      r.onload = function(e) { res(e.target.result); };
+      r.readAsDataURL(file);
+    };
+    img.src = url;
   });
 }
 
